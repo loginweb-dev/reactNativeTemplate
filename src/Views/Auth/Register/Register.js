@@ -41,7 +41,7 @@ class Register extends Component {
                         placeholder='Tu contraseña'
                         password
                     />
-                    <View style={{ margin: 20 }}>
+                    <View style={{ margin: 20, marginTop: 30 }}>
                         <ButtonBlock
                             title='Registrarse'
                             color='white'

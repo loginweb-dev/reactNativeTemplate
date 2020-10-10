@@ -4,7 +4,7 @@ Aplicación para conductores de la plataforma Appxi.
 
 ## Installación
 
-Para instalar la plantilla se deben ejecutar los siguientes comandos:
+Para instalar la aplicación se deben ejecutar los siguientes comandos:
 ```bash
 npm i
 npx jetify

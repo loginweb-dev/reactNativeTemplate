@@ -3,7 +3,7 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '10.0'
 
-target 'appxiDriver' do
+target 'AppxiDriver' do
   config = use_native_modules!
 
   use_react_native!(:path => config["reactNativePath"])
@@ -11,7 +11,7 @@ target 'appxiDriver' do
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 
 
-  target 'appxiDriverTests' do
+  target 'AppxiDriverTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -26,10 +26,10 @@ target 'appxiDriver' do
   end
 end
 
-target 'appxiDriver-tvOS' do
-  # Pods for appxiDriver-tvOS
+target 'AppxiDriver-tvOS' do
+  # Pods for AppxiDriver-tvOS
 
-  target 'appxiDriver-tvOSTests' do
+  target 'AppxiDriver-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end
