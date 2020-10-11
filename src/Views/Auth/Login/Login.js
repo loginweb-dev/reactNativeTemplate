@@ -77,6 +77,14 @@ class Login extends Component {
         super(props);
     }
 
+    test(){
+        this.props.navigation.reset({
+            index: 0,
+            routes: [{ name: 'TabMenu' }],
+            key: null,
+        });
+    }
+
     render(){
         return (
             <SafeAreaView style={styles.container}>
@@ -101,6 +109,7 @@ class Login extends Component {
                             color='white'
                             borderColor='#3b5998'
                             colorText='#3b5998'
+                            onPress={() => this.test()}
                         />
                     </View>
                     <View style={{ alignItems: 'center', width: '100%' }}>
