@@ -4,7 +4,7 @@ import {
     StyleSheet,
     Text
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export default function ButtonBlock(props) {
     return (

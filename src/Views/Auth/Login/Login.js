@@ -90,51 +90,53 @@ class Login extends Component {
             <SafeAreaView style={styles.container}>
                 <BackgroundColor
                     title='Login'
-                    backgroundColor='#45A4C0'
+                    backgroundColor='transparent'
                 />
-                <ScrollView style={{ paddingTop: 20 }}>
-                    <TextInputAlt
-                        label='Email'
-                        placeholder='Tu email o celular'
-                        keyboardType='email-address'
-                    />
-                    <TextInputAlt
-                        label='Contraseña'
-                        placeholder='Tu contraseña'
-                        password
-                    />
-                    <View style={{ margin: 20 }}>
-                        <ButtonBlock
-                            title='Iniciar sesión'
-                            color='white'
-                            borderColor='#3b5998'
-                            colorText='#3b5998'
-                            onPress={() => this.test()}
+                <ScrollView style={{ paddingTop: 20 }} showsVerticalScrollIndicator={false}>
+                    <View style={ styles.form }>
+                        <TextInputAlt
+                            label='Email'
+                            placeholder='Tu email o celular'
+                            keyboardType='email-address'
                         />
-                    </View>
-                    <View style={{ alignItems: 'center', width: '100%' }}>
-                        <Text style={{ color: '#B7B7B7' }}>O inicia sesión con tus redes sociales</Text>
-                    </View>
-                    <View style={{ padding: 30, paddingTop: 20}}>
-                        <ButtonBlock
-                            icon='facebook'
-                            title='Login con Facebook'
-                            color='#3b5998'
-                            onPress={() => onFacebookButtonPress()}
+                        <TextInputAlt
+                            label='Contraseña'
+                            placeholder='Tu contraseña'
+                            password
                         />
-                        <ButtonBlock
-                            icon='google'
-                            title='Login con Google'
-                            color='red'
-                            onPress={() => onGoogleButtonPress()}
-                        />
-                        <ButtonBlock
-                            title='Registrarse'
-                            color='transparent'
-                            colorText='#45A4C0'
-                            style={{ marginTop: 15 }}
-                            onPress={() => this.props.navigation.navigate('Register')}
-                        />
+                        <View style={{ margin: 20 }}>
+                            <ButtonBlock
+                                title='Iniciar sesión'
+                                color='white'
+                                borderColor='#3b5998'
+                                colorText='#3b5998'
+                                onPress={() => this.test()}
+                            />
+                        </View>
+                        <View style={{ alignItems: 'center', width: '100%' }}>
+                            <Text style={{ color: '#B7B7B7' }}>O inicia sesión con tus redes sociales</Text>
+                        </View>
+                        <View style={{ padding: 30, paddingTop: 20}}>
+                            <ButtonBlock
+                                icon='ios-logo-facebook'
+                                title='Login con Facebook'
+                                color='#3b5998'
+                                onPress={() => onFacebookButtonPress()}
+                            />
+                            <ButtonBlock
+                                icon='ios-logo-google'
+                                title='Login con Google'
+                                color='red'
+                                onPress={() => onGoogleButtonPress()}
+                            />
+                            <ButtonBlock
+                                title='Registrarse'
+                                color='transparent'
+                                colorText='#45A4C0'
+                                style={{ marginTop: 15 }}
+                                onPress={() => this.props.navigation.navigate('Register')}
+                            />
+                        </View>
                     </View>
                 </ScrollView>
             </SafeAreaView>
@@ -145,8 +147,14 @@ class Login extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white'
+        backgroundColor: '#2A80DB'
     },
+    form:{
+        paddingTop: 20,
+        backgroundColor: '#fff',
+        borderTopRightRadius: 20,
+        borderTopLeftRadius: 20
+    }
 });
 
 export default Login;

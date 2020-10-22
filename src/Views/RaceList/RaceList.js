@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, Image } from 'react-native';
+import { SafeAreaView, ScrollView, View, StyleSheet, Text } from 'react-native';
 
+// UI
+import CardRace from "../../UI/CardRace";
 
 export default class RaceList extends Component {
     constructor(props) {
@@ -9,18 +11,39 @@ export default class RaceList extends Component {
 
     render(){
         return (
-            <View style={ style.container }>
-                <Text>RaceList</Text>
-            </View>
+            <SafeAreaView style={ styles.container }>
+                <ScrollView showsVerticalScrollIndicator={false}>
+                    <CardRace
+                        customer='Juan perez'
+                        avatar=''
+                        description='Calle 18 de nov. nro 567'
+                        amount='25 Bs.'
+                    />
+                    <CardRace
+                        customer='Jorge Parada'
+                        avatar=''
+                        description='Av. del mar esq Nicolas Suarez'
+                        amount='20 Bs.'
+                    />
+                    <CardRace
+                        customer='María Nosa'
+                        avatar=''
+                        description='Calle Moxos esq Beni'
+                        amount='17 Bs.'
+                    />
+                </ScrollView>
+            </SafeAreaView>
         )
     }
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
+        // flexDirection: 'row',
+        // justifyContent: 'center',
+        // alignItems: 'center',
+        paddingVertical: 20,
+        paddingHorizontal: 10
+    }
 });

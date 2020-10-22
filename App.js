@@ -45,8 +45,7 @@ function App() {
         <Stack.Screen
           name="TabMenu" component={TabMenu}
           options={{
-            title: '',
-            headerTransparent: true,
+            title: 'Appxi Driver'
           }}
           independent={true}
         />
