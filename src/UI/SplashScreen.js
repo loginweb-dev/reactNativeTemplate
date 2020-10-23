@@ -36,7 +36,7 @@ export default class SplashScreen extends Component {
         return (
             <View style={ style.container }>
                 <Image 
-                    source={require('../assets/images/icon.png')}
+                    source={{uri: 'https://mystorage.loginweb.dev/storage/Projects/appxi/icon-512x512.png'}}
                     style={style.logo}
                     resizeMode="contain"
                 />

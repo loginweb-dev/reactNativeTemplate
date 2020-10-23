@@ -123,7 +123,6 @@ export default class RaceList extends Component {
                             initialRegion={this.state.region}
                         >
                             <Marker
-                                draggable
                                 coordinate={
                                     { 
                                         latitude: this.state.region.latitude,

@@ -1,11 +1,17 @@
 // In App.js in a new project
 
 import * as React from 'react';
+import {
+  View,
+  Text,
+  Image
+} from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Icon from 'react-native-vector-icons/Ionicons';
+import FlashMessage from "react-native-flash-message";
 
 // Views
 import SplashScreen from "./src/UI/SplashScreen";
@@ -45,12 +51,27 @@ function App() {
         <Stack.Screen
           name="TabMenu" component={TabMenu}
           options={{
-            title: 'Appxi Driver'
+            title: 'Appxi Driver',
+            headerTitle: props => <LogoTitle />
           }}
           independent={true}
         />
       </Stack.Navigator>
+      <FlashMessage position="top" duration={2300} />
     </NavigationContainer>
+  );
+}
+
+
+function LogoTitle() {
+  return (
+    <View style={{ flex: 1, flexDirection: 'row' }}>
+      <Image
+        style={{ width: 40, height: 40 }}
+        source={{uri: 'https://mystorage.loginweb.dev/storage/Projects/appxi/icon-512x512.png'}}
+      />
+      <Text style={{ marginLeft: 15, fontSize: 25 }}>AppxiDriver</Text>
+    </View>
   );
 }
 
@@ -80,7 +101,7 @@ function TabMenu() {
         options={{
           tabBarLabel: 'Carreras',
           tabBarIcon: ({ color }) => (
-            <Icon name="ios-list" color={color} size={26} />
+            <Icon name="ios-car-sport-sharp" color={color} size={26} />
           ),
         }}
       />

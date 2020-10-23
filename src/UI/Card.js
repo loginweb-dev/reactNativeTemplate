@@ -16,16 +16,14 @@ export default function Card(props) {
 
 const styles = StyleSheet.create({
     cardContainer: {
-        flexDirection: 'row',
         borderWidth: 1,
         borderBottomWidth: 0,
         backgroundColor: 'white',
         shadowColor: '#ddd',
         shadowOffset: { width: 0, height: 3 },
-        // borderRadius: 5,
+        borderRadius: 2,
         shadowOpacity: 0.8,
         shadowRadius: 2,
-        height: 80,
         width: '100%',
         elevation: 3,
         borderColor: '#ddd',
