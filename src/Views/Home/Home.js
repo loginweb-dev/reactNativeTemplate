@@ -13,6 +13,7 @@ import {
 
 // UI
 import CardBorderLeft from "../../UI/CardBorderLeft";
+import ClearFix from "../../UI/ClearFix";
 
 export default class Home extends Component {
     constructor(props) {
@@ -22,7 +23,7 @@ export default class Home extends Component {
     render(){
         return (
             <SafeAreaView style={ styles.container }>
-                <ScrollView showsVerticalScrollIndicator={false}>
+                <ScrollView showsVerticalScrollIndicator={false} style={{ paddingVertical: 10 }}>
                     <CardBorderLeft
                         title='Carreras realizadas'
                         description='10'
@@ -58,21 +59,15 @@ export default class Home extends Component {
                                 }
                             ]
                         }}
-                        width={Dimensions.get("window").width-20} // from react-native
+                        width={Dimensions.get("window").width-20}
                         height={180}
                         yAxisLabel="Bs."
-                        // yAxisSuffix="k"
-                        yAxisInterval={1} // optional, defaults to 1
                         chartConfig={{
-                            backgroundColor: "#EAEAEA",
                             backgroundGradientFrom: "#156095",
                             backgroundGradientTo: "#3E97D5",
-                            decimalPlaces: 1, // optional, defaults to 2dp
+                            decimalPlaces: 1,
                             color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                            labelColor: (opacity = 0.5) => `rgba(255, 255, 255, ${opacity})`,
-                            style: {
-                                borderRadius: 10
-                            },
+                            labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
                             propsForDots: {
                                 r: "6",
                                 strokeWidth: "2",
@@ -81,10 +76,10 @@ export default class Home extends Component {
                         }}
                         bezier
                         style={{
-                            marginVertical: 8,
                             borderRadius: 10
                         }}
                     />
+                    <ClearFix height={50} />
                 </ScrollView>
             </SafeAreaView>
         )
@@ -97,7 +92,6 @@ const styles = StyleSheet.create({
         // flexDirection: 'row',
         // justifyContent: 'center',
         // alignItems: 'center',
-        paddingVertical: 20,
         paddingHorizontal: 10
     }
 });

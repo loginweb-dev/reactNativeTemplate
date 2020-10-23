@@ -3,6 +3,7 @@ import { SafeAreaView, ScrollView, View, StyleSheet, Text } from 'react-native';
 
 // UI
 import CardRace from "../../UI/CardRace";
+import ClearFix from "../../UI/ClearFix";
 
 export default class RaceList extends Component {
     constructor(props) {
@@ -12,7 +13,7 @@ export default class RaceList extends Component {
     render(){
         return (
             <SafeAreaView style={ styles.container }>
-                <ScrollView showsVerticalScrollIndicator={false}>
+                <ScrollView showsVerticalScrollIndicator={false} style={{ paddingVertical: 10 }}>
                     <CardRace
                         customer='Juan perez'
                         avatar=''
@@ -31,6 +32,7 @@ export default class RaceList extends Component {
                         description='Calle Moxos esq Beni'
                         amount='17 Bs.'
                     />
+                    <ClearFix height={50} />
                 </ScrollView>
             </SafeAreaView>
         )
@@ -43,7 +45,7 @@ const styles = StyleSheet.create({
         // flexDirection: 'row',
         // justifyContent: 'center',
         // alignItems: 'center',
-        paddingVertical: 20,
+        // paddingVertical: 20,
         paddingHorizontal: 10
     }
 });

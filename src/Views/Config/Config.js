@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, Image } from 'react-native';
+import { SafeAreaView, ScrollView, View, StyleSheet, Text } from 'react-native';
 
+// UI
+import Card from "../../UI/Card";
+import ClearFix from "../../UI/ClearFix";
 
 export default class Config extends Component {
     constructor(props) {
@@ -9,18 +12,20 @@ export default class Config extends Component {
 
     render(){
         return (
-            <View style={ style.container }>
-                <Text>Config</Text>
-            </View>
+            <SafeAreaView style={ styles.container }>
+                <ScrollView showsVerticalScrollIndicator={false} style={{ paddingVertical: 10 }}>
+                    <Card
+                    />
+                    <ClearFix height={50} />
+                </ScrollView>
+            </SafeAreaView>
         )
     }
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
+        paddingHorizontal: 10
+    }
 });
