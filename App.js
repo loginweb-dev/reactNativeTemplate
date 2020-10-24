@@ -1,10 +1,11 @@
 // In App.js in a new project
 
-import * as React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
-  Image
+  Image,
+  TouchableOpacity
 } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -21,9 +22,14 @@ import Home from "./src/Views/Home/Home";
 import RaceList from "./src/Views/RaceList/RaceList";
 import Config from "./src/Views/Config/Config";
 
+// UI
+import DropDownMenu from "./src/UI/DropDownMenu";
+
 const Stack = createStackNavigator();
 
 function App() {
+  var [showMenu, handleMenu] = useState(false);
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -52,11 +58,41 @@ function App() {
           name="TabMenu" component={TabMenu}
           options={{
             title: 'Appxi Driver',
-            headerTitle: props => <LogoTitle />
+            headerTitle: props => <LogoTitle />,
+            headerRight: () => (
+            <TouchableOpacity
+              onPress={() => handleMenu(true)}
+            >
+              <Icon name="ellipsis-vertical-sharp" size={30} />
+            </TouchableOpacity>
+          ),
           }}
           independent={true}
         />
       </Stack.Navigator>
+
+      {/* Menu */}
+      {
+        showMenu &&
+        <DropDownMenu>
+          <TouchableOpacity onPress={ () => handleMenu(false)}>
+            <View style={{ height: 30 }}>
+              <Text style={{ fontSize: 16, fontWeight: 'bold', height: 30 }}><Icon name="help-circle-outline" size={15} /> Ayuda</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={ () => handleMenu(false)}>
+            <View style={{  }}>
+              <Text style={{ fontSize: 16, fontWeight: 'bold', height: 30 }}><Icon name="exit-outline" size={15} /> Salir</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={ () => handleMenu(false)}>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 5 }}>
+              <Text>Cerrar <Icon name="close-circle-outline" size={15} />  </Text>
+            </View>
+          </TouchableOpacity>
+        </DropDownMenu>
+      }
+
       <FlashMessage position="top" duration={2300} />
     </NavigationContainer>
   );
