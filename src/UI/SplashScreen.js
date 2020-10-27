@@ -18,7 +18,7 @@ class SplashScreen extends Component {
     // Fetch the token from storage then navigate to our appropriate place
     bootstrapAsync = async () => {
         const SessionUser = await AsyncStorage.getItem('SessionUser');
-        let user = JSON.parse(SessionUser);
+        let user = SessionUser ? JSON.parse(SessionUser) : {};
         setTimeout(()=>{
             this.setState({
                 isLoading: false

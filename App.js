@@ -31,7 +31,7 @@ import Config from "./src/Views/Config/Config";
 import DropDownMenu from "./src/UI/DropDownMenu";
 
 // Firebase
-// import auth from '@react-native-firebase/auth';
+import auth from '@react-native-firebase/auth';
 import { LoginManager } from 'react-native-fbsdk';
 
 const Stack = createStackNavigator();
@@ -42,8 +42,12 @@ function App() {
   var [showAlert, handleAlert] = useState(false);
 
   const logOut = async () => {
-    // auth().signOut();
-    LoginManager.logOut();
+    try {
+      await auth().signOut();
+      await LoginManager.logOut();
+    } catch (error) {
+      
+    }
     await AsyncStorage.setItem('SessionUser', '{}')
     handleMenu(false);
     handleAlert(false);
