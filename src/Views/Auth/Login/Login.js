@@ -7,6 +7,8 @@ import {
     Text,
     Alert
 } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+import { connect } from 'react-redux';
 
 // Firebase
 import auth from '@react-native-firebase/auth';
@@ -25,59 +27,90 @@ GoogleSignin.configure({
     forceCodeForRefreshToken: true,
 });
 
-async function onFacebookButtonPress() {
-    // Attempt login with permissions
-    const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
-
-    if (result.isCancelled) {
-        throw 'User cancelled the login process';
-    }
-
-    // Once signed in, get the users AccesToken
-    AccessToken.getCurrentAccessToken()
-    .then((data) => {
-        const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
-        // Sign-in the user with the credential
-        auth().signInWithCredential(facebookCredential);
-
-        // Get information from Facebook API 
-        fetch(`https://graph.facebook.com/me?fields=id,name,email&access_token=${data.accessToken}`)
-        .then(res => res.json())
-        .then(res => {
-            let user = {
-                id: null,
-                name: res.name,
-                email: res.email ? res.email : `${res.id}@loginweb.dev`,
-                codePhone: '+591',
-                numberPhone: '',
-                avatar: `http://graph.facebook.com/${res.id}/picture?type=large`,
-                nit: '',
-                type: 'facebook'
-            }
-            Alert.alert(`Hola, ${user.name}`);
-        })
-        .catch(error => {
-            console.log(error);
-        })
-    })
-}
-
-async function onGoogleButtonPress() {
-    try {
-        await GoogleSignin.hasPlayServices();
-        const userInfo = await GoogleSignin.signIn();
-        Alert.alert(`Hola, ${userInfo.user.name}`);
-    } catch (error) {
-        console.log(error)
-    }
-}
-
 class Login extends Component {
     constructor(props) {
         super(props);
     }
 
-    test(){
+    onFacebookButtonPress = async () => {
+        // Attempt login with permissions
+        const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
+
+        if (result.isCancelled) {
+            throw 'User cancelled the login process';
+        }
+
+        // Once signed in, get the users AccesToken
+        AccessToken.getCurrentAccessToken()
+        .then((data) => {
+            const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
+            // Sign-in the user with the credential
+            auth().signInWithCredential(facebookCredential);
+
+            // Get information from Facebook API 
+            fetch(`https://graph.facebook.com/me?fields=id,name,email&access_token=${data.accessToken}`)
+            .then(res => res.json())
+            .then(res => {
+                let user = {
+                    id: res.id,
+                    name: res.name,
+                    email: res.email ? res.email : `${res.id}@loginweb.dev`,
+                    codePhone: '+591',
+                    numberPhone: '',
+                    avatar: `http://graph.facebook.com/${res.id}/picture?type=large`,
+                    type: 'facebook'
+                }
+                this.props.setUser(user);
+                AsyncStorage.setItem('SessionUser', JSON.stringify(user));
+                this.props.navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'TabMenu' }],
+                    key: null,
+                });
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        })
+    }
+
+    onGoogleButtonPress = async () => {
+        try {
+            await GoogleSignin.hasPlayServices();
+            const userInfo = await GoogleSignin.signIn();
+            let user = {
+                id: userInfo.user.id,
+                name: userInfo.user.name,
+                email: userInfo.user.email,
+                codePhone: '+591',
+                numberPhone: '',
+                avatar: userInfo.user.photo,
+                type: 'google'
+            }
+            this.props.setUser(user);
+            AsyncStorage.setItem('SessionUser', JSON.stringify(user));
+            this.props.navigation.reset({
+                index: 0,
+                routes: [{ name: 'TabMenu' }],
+                key: null,
+            });
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    handleLogin(){
+        let user = {
+            id: 1,
+            name: 'Invitado',
+            email: 'invitado@gamil.com',
+            codePhone: '+591',
+            numberPhone: '',
+            avatar: 'https://reactnative.dev/img/tiny_logo.png',
+            type: 'dashboard'
+        }
+        this.props.setUser(user);
+        AsyncStorage.setItem('SessionUser', JSON.stringify(user));
         this.props.navigation.reset({
             index: 0,
             routes: [{ name: 'TabMenu' }],
@@ -110,7 +143,7 @@ class Login extends Component {
                                 color='white'
                                 borderColor='#3b5998'
                                 colorText='#3b5998'
-                                onPress={() => this.test()}
+                                onPress={() => this.handleLogin()}
                             />
                         </View>
                         <View style={{ alignItems: 'center', width: '100%' }}>
@@ -121,13 +154,13 @@ class Login extends Component {
                                 icon='ios-logo-facebook'
                                 title='Login con Facebook'
                                 color='#3b5998'
-                                onPress={() => onFacebookButtonPress()}
+                                onPress={ this.onFacebookButtonPress }
                             />
                             <ButtonBlock
                                 icon='ios-logo-google'
                                 title='Login con Google'
                                 color='red'
-                                onPress={() => onGoogleButtonPress()}
+                                onPress={ this.onGoogleButtonPress }
                             />
                             <ButtonBlock
                                 title='Registrarse'
@@ -157,4 +190,13 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Login;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setUser : (user) => dispatch({
+            type: 'SET_USER',
+            payload: user
+        })
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Login);

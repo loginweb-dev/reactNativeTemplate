@@ -13,6 +13,7 @@ import {
 from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { showMessage } from "react-native-flash-message";
+import { connect } from 'react-redux';
 
 // UI
 import Card from "../../UI/Card";
@@ -23,7 +24,7 @@ import ClearFix from "../../UI/ClearFix";
 const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeight = Math.round(Dimensions.get('window').height);
 
-export default class Config extends Component {
+class Config extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -51,13 +52,13 @@ export default class Config extends Component {
                                 <View style={{ width: '40%', flex: 1 }}>
                                     <Image
                                         style={{ width: 80, height: 80, borderRadius: 40 }}
-                                        source={{uri: 'https://reactnative.dev/img/tiny_logo.png',}}
+                                        source={{ uri: this.props.user.avatar }}
                                     />
                                 </View>
                                 <View style={{ width: '60%', paddingLeft: 30 }}>
-                                    <Text style={{ fontSize: 18, color: 'black' }} numberOfLines={1}>Jhon Doe Smith G.</Text>
-                                    <Text style={ styles.textMuted } numberOfLines={1}>jhon.doe@gmail.com</Text>
-                                    <Text style={ styles.textMuted } numberOfLines={1}>75199157</Text>
+                                    <Text style={{ fontSize: 18, color: 'black' }} numberOfLines={1}>{ this.props.user.name }</Text>
+                                    <Text style={ styles.textMuted } numberOfLines={1}>{ this.props.user.email }</Text>
+                                    <Text style={ styles.textMuted } numberOfLines={1}>{ this.props.user.phone }</Text>
                                 </View>
                                 <View style={{ width: '5%', flex: 1, alignItems: 'center', flexDirection: 'row-reverse' }}>
                                     <Icon name="chevron-forward" />
@@ -86,7 +87,7 @@ export default class Config extends Component {
                             <Text style={{ fontSize: 20, marginHorizontal: 20, marginBottom: 20 }}>Editar Perfil</Text>
                             <Image
                                 style={{ width: 80, height: 80, borderRadius: 40, marginVertical: 10 }}
-                                source={{uri: 'https://reactnative.dev/img/tiny_logo.png',}}
+                                source={{ uri: this.props.user.avatar }}
                             />
                         </View>
                         <View style={ styles.form }>
@@ -159,3 +160,11 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 20
     }
 });
+
+const mapStateToProps = (state) => {
+    return {
+        user: state.user,
+    }
+}
+
+export default connect(mapStateToProps)(Config);

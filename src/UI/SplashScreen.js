@@ -1,31 +1,33 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import { connect } from 'react-redux';
 
 // Configurations
 import { env } from '../config/env.js';
 
-export default class SplashScreen extends Component {
+class SplashScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          isLoading: true,
-          isLoggedIn: false
+          isLoading: true
         }
         this.bootstrapAsync();
     }
 
     // Fetch the token from storage then navigate to our appropriate place
     bootstrapAsync = async () => {
-        const isLoggedIn = await AsyncStorage.getItem('isLoggedIn');
+        const SessionUser = await AsyncStorage.getItem('SessionUser');
+        let user = JSON.parse(SessionUser);
         setTimeout(()=>{
             this.setState({
-                isLoggedIn: isLoggedIn == '1' ? true : false,
                 isLoading: false
             }, () => {
+                console.log(user);
+                this.props.setUser(user);
                 this.props.navigation.reset({
                     index: 0,
-                    routes: [{ name: 'Login' }],
+                    routes: [{ name: user.id ? 'TabMenu' : 'Login' }],
                     key: null,
                 });
             });
@@ -85,3 +87,14 @@ const style = StyleSheet.create({
         fontWeight: 'bold'
     }
 });
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setUser : (user) => dispatch({
+            type: 'SET_USER',
+            payload: user
+        })
+    }
+}
+
+export default connect(null, mapDispatchToProps)(SplashScreen);

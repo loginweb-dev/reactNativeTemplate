@@ -11,6 +11,7 @@ import {
 import BackgroundColor from "../../../UI/BackgroundColor";
 import TextInputAlt from "../../../UI/TextInputAlt";
 import ButtonBlock from "../../../UI/ButtonBlock";
+import ClearFix from "../../../UI/ClearFix";
 
 class Register extends Component {
     render(){
@@ -50,6 +51,7 @@ class Register extends Component {
                                 colorText='#3b5998'
                             />
                         </View>
+                        <ClearFix height={50} />
                     </View>
                 </ScrollView>
             </SafeAreaView>
